@@ -10,9 +10,9 @@
     "build": "tsc && git add .",
     "set-url": "git remote set-url origin",
     "check-url": "git remote -v",
-    "merge": "git merge origin main --allow-unrelated-histories",
-    "push": "git push origin main",
-    "pull": "git pull origin main"
+    "merge": "git merge origin master --allow-unrelated-histories",
+    "push": "git push origin master",
+    "pull": "git pull origin master"
   },
   "repository": "git+https://github.com/AnonymousCoder2020/my-useful-objects.git",
   "keywords": [],
