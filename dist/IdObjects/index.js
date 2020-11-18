@@ -1,4 +1,4 @@
-import cleanIntId from '../lib/clean-int-id';
+import cleanIntId from '../lib/cleanIntId';
 export default class {
     constructor(initialValues) {
         this.values = [];

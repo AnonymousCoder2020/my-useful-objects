@@ -1,4 +1,4 @@
-import getDocument from '../get-document';
+import getDocument from '../getDocument';
 // URLがRootのファビコンを示しているか
 const isRootFaviconUrl = (url) => url.pathname === '/favicon.ico';
 // レスポンスのMIMETypeが画像またはアイコンか
@@ -60,7 +60,7 @@ const getFaviconsFromHead = async (url, d) => {
                 exists = true;
             }
         }
-        catch (_a) {
+        catch {
             exists = false;
         }
         return { size, href, exists };

@@ -1,10 +1,18 @@
 {
-  "index-format": {
-    "index": "./src/index.ts",
-    "module": {
-      "includes": ["./src"],
-      "excludes": ["./src/lib", "./src/StackHistory"]
+  "index-format": [
+    {
+      "index": "./src/index.ts",
+      "module": {
+        "includes": ["./src"],
+        "excludes": ["./src/lib", "./src/StackHistory", "./**/*.test.ts"]
+      }
     },
-    "format": "export { default as ${moduleName} } from './${moduleName}'"
-  }
+    {
+      "index": "./src/lib/index.ts",
+      "module": {
+        "includes": ["./src/lib/"],
+        "excludes": ["./**/*.test.ts"]
+      }
+    }
+  ]
 }

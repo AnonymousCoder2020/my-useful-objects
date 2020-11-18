@@ -1,4 +1,4 @@
-import GetOnlineFavicon from '../lib/get-online-favicon';
+import GetOnlineFavicon from '../lib/getOnlineFavicon';
 class FaviconCache {
     constructor(list = {}) {
         this.list = list;
