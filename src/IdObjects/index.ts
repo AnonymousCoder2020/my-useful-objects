@@ -20,6 +20,10 @@ export default class<I extends IdObject> {
     this.values.push(...items)
     this.cleanId()
   }
+  unshift(...items: I[]) {
+    this.values.unshift(...items)
+    this.cleanId()
+  }
   removes(...ids: number[]) {
     this.values = this.values.filter(item => !ids.includes(item.id))
   }

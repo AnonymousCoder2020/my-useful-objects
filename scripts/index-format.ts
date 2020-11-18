@@ -12,7 +12,6 @@ interface Option {
 }
 
 ;(async () => {
-  // const { module, index, format } = conf.get('index-format')
   const indexFormats: Option[] = conf.get('index-format')
   for (let { module, index, format } of indexFormats) {
     format = format ?? "export { default as ${moduleName} } from './${moduleName}'"

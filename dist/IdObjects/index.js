@@ -15,6 +15,10 @@ export default class {
         this.values.push(...items);
         this.cleanId();
     }
+    unshift(...items) {
+        this.values.unshift(...items);
+        this.cleanId();
+    }
     removes(...ids) {
         this.values = this.values.filter(item => !ids.includes(item.id));
     }

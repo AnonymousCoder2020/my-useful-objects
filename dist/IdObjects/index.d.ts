@@ -7,6 +7,7 @@ export default class<I extends IdObject> {
     values: I[];
     cleanId(): void;
     adds(...items: I[]): void;
+    unshift(...items: I[]): void;
     removes(...ids: number[]): void;
     find(id: number): I | undefined;
 }
