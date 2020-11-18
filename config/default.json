@@ -1,0 +1,10 @@
+{
+  "index-format": {
+    "index": "./src/index.ts",
+    "module": {
+      "includes": ["./src"],
+      "excludes": ["./src/lib", "./src/StackHistory"]
+    },
+    "format": "export { default as ${moduleName} } from './${moduleName}'"
+  }
+}

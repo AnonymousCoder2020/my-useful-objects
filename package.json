@@ -10,9 +10,9 @@
     "build": "tsc && git add .",
     "set-url": "git remote set-url origin",
     "check-url": "git remote -v",
-    "merge": "git merge origin master --allow-unrelated-histories",
-    "push": "git push origin master",
-    "pull": "git pull origin master"
+    "merge": "git merge origin main --allow-unrelated-histories",
+    "push": "git push origin main",
+    "pull": "git pull origin main"
   },
   "repository": "git+https://github.com/AnonymousCoder2020/my-useful-objects.git",
   "keywords": [],
@@ -20,20 +20,25 @@
   "license": "MIT",
   "bugs": "https://github.com/AnonymousCoder2020/my-useful-objects/issues",
   "homepage": "https://github.com/AnonymousCoder2020/my-useful-objects#readme",
-  "dependencies": {},
+  "dependencies": {
+    "lodash-es": "^4.17.15",
+    "next-ts-utility": "git+https://github.com/AnonymousCoder2020/next-ts-utility.git"
+  },
   "devDependencies": {
     "@babel/core": "^7.11.5",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@types/babel__core": "^7.1.8",
+    "@types/config": "^0.0.36",
     "@types/html-webpack-plugin": "^3.2.3",
     "@types/jest": "^24.9.1",
     "@types/lodash-es": "^4.17.3",
-    "@types/lodash.isplainobject": "^4.0.6",
     "@types/store": "^2.0.2",
-    "@types/webpack": "^4.41.17",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-imports": "^2.0.0",
+    "config": "^3.3.2",
     "css-loader": "^3.6.0",
+    "fetch-mock": "^9.10.7",
+    "globby": "^11.0.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "jest-svg-transformer": "^1.0.0",
@@ -41,6 +46,7 @@
     "ts-jest": "^24.3.0",
     "ts-loader": "^6.2.2",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "typesync": "^0.7.0"
   }
 }
