@@ -3,7 +3,7 @@ export default class {
     constructor(initialValues) {
         this.values = [];
         if (initialValues)
-            this.values = initialValues;
+            this.mapIdForAdd(initialValues, mappedInitialValues => (this.values = mappedInitialValues));
     }
     cleanId() {
         cleanIntId(this.values, {
@@ -11,13 +11,15 @@ export default class {
             setter: (item, newId) => (item.id = newId),
         });
     }
-    adds(...items) {
-        this.values.push(...items);
+    mapIdForAdd(items, callback) {
+        callback(items.map(item => ((item.id = 0), item)));
         this.cleanId();
     }
+    adds(...items) {
+        this.mapIdForAdd(items, mappedItems => this.values.push(...mappedItems));
+    }
     unshift(...items) {
-        this.values.unshift(...items);
-        this.cleanId();
+        this.mapIdForAdd(items, mappedItems => this.values.unshift(...mappedItems));
     }
     removes(...ids) {
         this.values = this.values.filter(item => !ids.includes(item.id));

@@ -1,28 +1,28 @@
+import { PlainAnyObject } from 'my-useful-type'
 import cleanIntId from '../lib/cleanIntId'
 
-interface IdObject {
-  id: number
-  [key: string]: any
-}
+type Withid<T extends PlainAnyObject> = T & { id: number }
 
-export default class<I extends IdObject> {
+export default class<I extends PlainAnyObject & { id?: number }> {
   constructor(initialValues?: I[]) {
-    if (initialValues) this.values = initialValues
+    if (initialValues) this.mapIdForAdd(initialValues, mappedInitialValues => (this.values = mappedInitialValues))
   }
-  values: I[] = []
+  values: Withid<I>[] = []
   cleanId() {
     cleanIntId(this.values, {
       getter: item => item.id,
       setter: (item, newId) => (item.id = newId),
     })
   }
-  adds(...items: I[]) {
-    this.values.push(...items)
+  private mapIdForAdd(items: I[], callback: (mapedItems: Withid<I>[]) => unknown) {
+    callback(items.map(item => ((item.id = 0), item)) as Withid<I>[])
     this.cleanId()
   }
+  adds(...items: I[]) {
+    this.mapIdForAdd(items, mappedItems => this.values.push(...mappedItems))
+  }
   unshift(...items: I[]) {
-    this.values.unshift(...items)
-    this.cleanId()
+    this.mapIdForAdd(items, mappedItems => this.values.unshift(...mappedItems))
   }
   removes(...ids: number[]) {
     this.values = this.values.filter(item => !ids.includes(item.id))
