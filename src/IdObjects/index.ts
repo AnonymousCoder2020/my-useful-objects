@@ -1,21 +1,21 @@
 import { PlainAnyObject } from 'my-useful-type'
 import cleanIntId from '../lib/cleanIntId'
 
-type Withid<T extends PlainAnyObject> = T & { id: number }
+export type WithId<T extends PlainAnyObject> = T & { id: number }
 
 export default class<I extends PlainAnyObject & { id?: number }> {
   constructor(initialValues?: I[]) {
     if (initialValues) this.mapIdForAdd(initialValues, mappedInitialValues => (this.values = mappedInitialValues))
   }
-  values: Withid<I>[] = []
+  values: WithId<I>[] = []
   cleanId() {
     cleanIntId(this.values, {
       getter: item => item.id,
       setter: (item, newId) => (item.id = newId),
     })
   }
-  private mapIdForAdd(items: I[], callback: (mapedItems: Withid<I>[]) => unknown) {
-    callback(items.map(item => ((item.id = 0), item)) as Withid<I>[])
+  private mapIdForAdd(items: I[], callback: (mapedItems: WithId<I>[]) => unknown) {
+    callback(items.map(item => ((item.id = 0), item)) as WithId<I>[])
     this.cleanId()
   }
   adds(...items: I[]) {
