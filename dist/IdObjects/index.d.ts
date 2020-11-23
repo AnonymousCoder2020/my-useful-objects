@@ -1,5 +1,5 @@
 import { PlainAnyObject } from 'my-useful-type';
-declare type WithId<T extends PlainAnyObject> = T & {
+export declare type WithId<T extends PlainAnyObject> = T & {
     id: number;
 };
 export default class<I extends PlainAnyObject & {
@@ -14,4 +14,3 @@ export default class<I extends PlainAnyObject & {
     removes(...ids: number[]): void;
     find(id: number): WithId<I> | undefined;
 }
-export {};

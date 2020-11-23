@@ -2,7 +2,7 @@ import { isInteger } from 'lodash-es'
 import { PlainAnyObject } from 'my-useful-type'
 import cleanIntId from '../lib/cleanIntId'
 
-type WithId<T extends PlainAnyObject> = T & { id: number }
+export type WithId<T extends PlainAnyObject> = T & { id: number }
 
 export default class<I extends PlainAnyObject & { id?: number }> {
   constructor(initialValues?: I[]) {
