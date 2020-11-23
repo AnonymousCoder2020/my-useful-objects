@@ -1,5 +1,5 @@
 import { PlainAnyObject } from 'my-useful-type';
-export declare type WithId<T extends PlainAnyObject> = T & {
+declare type WithId<T extends PlainAnyObject> = T & {
     id: number;
 };
 export default class<I extends PlainAnyObject & {
@@ -7,10 +7,11 @@ export default class<I extends PlainAnyObject & {
 }> {
     constructor(initialValues?: I[]);
     values: WithId<I>[];
-    cleanId(): void;
+    cleanId(): import("../IdManager").default;
     private mapIdForAdd;
     adds(...items: I[]): void;
     unshift(...items: I[]): void;
     removes(...ids: number[]): void;
     find(id: number): WithId<I> | undefined;
 }
+export {};
