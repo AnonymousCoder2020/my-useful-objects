@@ -1,14 +1,16 @@
 import { ClassPropsPartial } from 'my-useful-type'
+import Init from '../Init'
 
 export type Id = string | number
 
 type GetIdDef<T, I extends Id> = (item: T) => I
 
-export default class SelectionItems<T, I extends Id> {
+export default class SelectionItems<T, I extends Id> extends Init<SelectionItems<T, I>> {
   select: Set<I> = new Set()
   range: Set<I> = new Set()
   pinId?: I
   constructor(public items: T[], public getIdDef: GetIdDef<T, I>, option?: ClassPropsPartial<SelectionItems<T, I>>) {
+    super()
     option && Object.assign(this, option)
     this.clean()
   }

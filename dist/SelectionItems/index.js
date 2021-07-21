@@ -1,5 +1,7 @@
-export default class SelectionItems {
+import Init from '../Init';
+export default class SelectionItems extends Init {
     constructor(items, getIdDef, option) {
+        super();
         this.items = items;
         this.getIdDef = getIdDef;
         this.select = new Set();

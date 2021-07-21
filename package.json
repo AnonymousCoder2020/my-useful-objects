@@ -43,7 +43,7 @@
     "html-webpack-plugin": "^4.5.1",
     "jest": "^26.6.3",
     "jest-svg-transformer": "^1.0.0",
-    "my-useful-type": "git+https://github.com/AnonymousCoder2020/my-useful-type.git",
+    "my-useful-type": "github:AnonymousCoder2020/my-useful-type",
     "ts-essentials": "^7.0.1",
     "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.13",
