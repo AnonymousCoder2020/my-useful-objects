@@ -10,8 +10,8 @@ export default class SelectionItems<T, I extends Id> extends Init<SelectionItems
     pinId?: I;
     constructor(items: T[], getIdDef: GetIdDef<T, I>, option?: ClassPropsPartial<SelectionItems<T, I>>);
     get totalSelect(): I[];
-    private getId;
-    private getIdx;
+    getId(idx: number): I | undefined;
+    getIdx(id: I): number;
     toggle(idx: number): void;
     toggleId(id: I): void;
     takeOverSelect(): void;

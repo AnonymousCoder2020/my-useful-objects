@@ -17,7 +17,7 @@ export default class SelectionItems<T, I extends Id> extends Init<SelectionItems
   get totalSelect() {
     return [...this.select, ...this.range]
   }
-  private getId(idx: number) {
+  getId(idx: number) {
     const targetItem = this.items[idx]
     if (!targetItem ?? false) {
       console.warn(`インデックス: ${idx} のアイテムは存在しません。\nアイテム: ${JSON.stringify(targetItem)}`)
@@ -25,7 +25,7 @@ export default class SelectionItems<T, I extends Id> extends Init<SelectionItems
     }
     return this.getIdDef(this.items[idx])
   }
-  private getIdx(id: I) {
+  getIdx(id: I) {
     return this.items.findIndex(item => this.getIdDef(item) === id)
   }
   toggle(idx: number) {
