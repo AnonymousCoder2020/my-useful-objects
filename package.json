@@ -23,7 +23,7 @@
   "homepage": "https://github.com/AnonymousCoder2020/my-useful-objects#readme",
   "dependencies": {
     "lodash-es": "^4.17.20",
-    "next-ts-utility": "git+https://github.com/AnonymousCoder2020/next-ts-utility.git"
+    "next-ts-utility": "github:AnonymousCoder2020/next-ts-utility"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

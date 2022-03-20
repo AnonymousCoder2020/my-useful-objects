@@ -1,4 +1,5 @@
 export { default as Init } from './Init';
+export { default as NestIdObject } from './NestIdObject';
 export { default as FaviconCache } from './FaviconCache';
 export { default as IdManager } from './IdManager';
 export { default as IdObjects } from './IdObjects';
