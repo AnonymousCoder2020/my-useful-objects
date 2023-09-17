@@ -28,6 +28,6 @@
     ],
     "experimentalDecorators": true
   },
-  "include": ["src"],
+  "include": ["src", "test/get-document.test.ts"],
   "exclude": ["tests", "**/*.test.ts", "src/StackHistory/**"]
 }
