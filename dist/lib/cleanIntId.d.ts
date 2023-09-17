@@ -1,4 +1,4 @@
-import IdManager from '../../IdManager';
+import IdManager from '../IdManager';
 interface ProcessOption<T extends unknown> {
     getter: (item: T) => unknown;
     setter: (item: T, id: number) => unknown;

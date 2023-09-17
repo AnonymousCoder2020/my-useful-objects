@@ -1,5 +1,5 @@
 import { isInteger } from 'lodash-es';
-import cleanIntId from '../lib/cleanIntId';
+import cleanIntId from './lib/cleanIntId';
 export default class {
     constructor(initialValues) {
         this.values = [];

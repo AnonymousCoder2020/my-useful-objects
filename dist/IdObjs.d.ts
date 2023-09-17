@@ -7,7 +7,7 @@ export default class<I extends PlainAnyObject & {
 }> {
     constructor(initialValues?: I[]);
     values: WithId<I>[];
-    cleanId(): import("../IdManager").default;
+    cleanId(): import("./IdManager").default;
     private mapIdForAdd;
     adds(...items: I[]): void;
     unshift(...items: I[]): void;

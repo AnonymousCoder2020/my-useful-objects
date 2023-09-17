@@ -1,4 +1,4 @@
-import Init from '../Init';
+import Init from './Init';
 export default class SelectionItems extends Init {
     constructor(items, getIdDef, option) {
         super();

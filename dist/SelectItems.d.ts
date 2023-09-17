@@ -1,5 +1,5 @@
 import { ClassPropsPartial } from 'my-useful-type';
-import Init from '../Init';
+import Init from './Init';
 export declare type Id = string | number;
 declare type GetIdDef<T, I extends Id> = (item: T) => I;
 export default class SelectionItems<T, I extends Id> extends Init<SelectionItems<T, I>> {

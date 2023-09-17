@@ -1,5 +1,5 @@
 import { between } from 'next-ts-utility';
-import IdManager from '../../IdManager';
+import IdManager from '../IdManager';
 export default (items, { getter, setter }) => {
     const usedIdSet = new Set();
     const vaildIdItemIdxes = [];

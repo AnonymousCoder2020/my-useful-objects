@@ -1,0 +1,55 @@
+import { eachRecur } from 'next-ts-utility';
+import { Init } from '.';
+import cleanIntId from './lib/cleanIntId';
+class NestIdObj extends Init {
+    constructor() {
+        super();
+        this.open = true;
+    }
+    toggleOpen() {
+        this.open = !this.open;
+    }
+    get followers() {
+        return eachRecur(this, node => node.sons);
+    }
+    cleanIdOnTop() {
+        const nodes = this.followers;
+        this.idManager = cleanIntId(nodes, {
+            getter: node => node.id,
+            setter: (node, id) => (node.id = id),
+        });
+    }
+    clearId() {
+        const { root } = this;
+        (root !== null && root !== void 0 ? root : this).cleanIdOnTop();
+    }
+    get root() {
+        let parent = this.boss;
+        let prev = this;
+        while (parent) {
+            prev = parent; //前の内容を保存
+            parent = parent.boss;
+        }
+        return prev;
+    }
+    setSons(callback) {
+        var _a;
+        const { sons, root } = this;
+        if (!root.idManager)
+            root.cleanIdOnTop();
+        const createCopy = () => { var _a; return (_a = sons === null || sons === void 0 ? void 0 : sons.slice()) !== null && _a !== void 0 ? _a : []; };
+        const newSons = (_a = callback === null || callback === void 0 ? void 0 : callback(createCopy(), root.idManager)) !== null && _a !== void 0 ? _a : createCopy();
+        newSons.forEach(child => (child.boss = this));
+        this.sons = newSons;
+    }
+    d() {
+        let boss = this.boss;
+        let d = 0;
+        while (boss) {
+            d++;
+            boss = boss.boss;
+        }
+        return d;
+    }
+}
+export default NestIdObj;

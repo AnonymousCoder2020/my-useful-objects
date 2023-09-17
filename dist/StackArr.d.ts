@@ -1,5 +1,5 @@
 export default class<T> {
-    values: T[];
+    v: T[];
     unshift(...items: T[]): number;
     shift(): T | undefined;
 }
