@@ -1,5 +1,5 @@
 import { between } from 'next-ts-utility'
-import IdManager from '../../IdManager'
+import IdManager from '../IdManager'
 
 interface ProcessOption<T extends unknown> {
   getter: (item: T) => unknown

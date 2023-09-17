@@ -1,6 +1,6 @@
 //const util = require('util')
 import { random, times } from 'lodash-es'
-import cleanIntId from '.'
+import cleanIntId from '../src/lib/cleanIntId'
 
 describe('lib.cleanIntId', () => {
   const randomIds = [Infinity, -Infinity, NaN, null, undefined, '', 6.43, 1, 2, 3, 4, 5, 6, /regepx/]

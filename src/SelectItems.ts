@@ -1,5 +1,5 @@
 import { ClassPropsPartial } from 'my-useful-type'
-import Init from '../Init'
+import Init from './Init'
 
 export type Id = string | number
 

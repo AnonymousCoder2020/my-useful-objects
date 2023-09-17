@@ -1,4 +1,4 @@
-import getDocument from '../getDocument'
+import getDocument from './getDoc'
 
 interface Opt {
   // 指定されたドキュメントオブジェクトのheadタグ内からfaviconURLを探す

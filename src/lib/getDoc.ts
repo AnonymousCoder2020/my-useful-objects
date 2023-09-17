@@ -1,4 +1,4 @@
-import objError from '../objError'
+import objError from './objErr'
 
 export default async (url: string) => {
   const res = await fetch(url)

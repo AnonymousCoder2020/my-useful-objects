@@ -1,4 +1,4 @@
-import StackArray from '../StackArray'
+import StackArray from './StackArr'
 
 export namespace StackHistory {
   export interface Item {
@@ -6,9 +6,7 @@ export namespace StackHistory {
     args: any[]
   }
   export namespace HistoryRule {
-    export type Generics = {
-      
-    }
+    export type Generics = {}
     export type Block = {
       name: string
       fn: (...args: any[]) => any

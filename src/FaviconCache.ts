@@ -1,4 +1,4 @@
-import GetOnlineFavicon from '../lib/getOnlineFavicon'
+import GetOnlineFavicon from './lib/getOnlineFavicon'
 
 interface FaviconList {
   [hostname: string]: string

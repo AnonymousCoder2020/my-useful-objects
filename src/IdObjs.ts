@@ -1,6 +1,6 @@
 import { isInteger } from 'lodash-es'
 import { PlainAnyObject } from 'my-useful-type'
-import cleanIntId from '../lib/cleanIntId'
+import cleanIntId from './lib/cleanIntId'
 
 export type WithId<T extends PlainAnyObject> = T & { id: number }
 
