@@ -1,5 +1,5 @@
 import { IdManager, Init } from '.';
-declare type SetSonsCallback = (children: NestIdObj[], idManager: IdManager) => NestIdObj[];
+type SetSonsCallback = (children: NestIdObj[], idManager: IdManager) => NestIdObj[];
 declare class NestIdObj extends Init<NestIdObj> {
     name?: string;
     id?: number;

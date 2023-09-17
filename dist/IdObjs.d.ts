@@ -1,5 +1,5 @@
 import { PlainAnyObject } from 'my-useful-type';
-export declare type WithId<T extends PlainAnyObject> = T & {
+export type WithId<T extends PlainAnyObject> = T & {
     id: number;
 };
 export default class<I extends PlainAnyObject & {
