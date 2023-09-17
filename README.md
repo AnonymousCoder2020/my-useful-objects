@@ -1,5 +1,5 @@
 # my-useful-objects
 
 ```
-npm i https://github.com/AnonymousCoder2020/my-useful-objects
+yarn add github:AnonymousCoder2020/my-useful-objects
 ```
