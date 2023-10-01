@@ -1,3 +1,4 @@
+import { max } from 'lodash-es';
 import { eachRecur } from 'next-ts-utility';
 import { Init } from '.';
 import cleanIntId from './lib/cleanIntId';
@@ -41,6 +42,18 @@ class NestIdObj extends Init {
         const newSons = (_a = callback === null || callback === void 0 ? void 0 : callback(createCopy(), root.idManager)) !== null && _a !== void 0 ? _a : createCopy();
         newSons.forEach(child => (child.boss = this));
         this.sons = newSons;
+    }
+    get lastId() {
+        const treeIds = this.root.followers.map(obj => obj.id).filter(id => typeof id == 'number');
+        return max(treeIds);
+    }
+    addSons(...sons) {
+        var _a;
+        const lastId = this.lastId;
+        if (!lastId)
+            return;
+        sons.map((son, i) => (son.id = lastId + i));
+        this.sons = ((_a = this.sons) !== null && _a !== void 0 ? _a : []).concat(sons);
     }
     d() {
         let boss = this.boss;
