@@ -44,8 +44,13 @@ class NestIdObj extends Init {
         this.sons = newSons;
     }
     get lastId() {
+        var _a;
+        const dumpedIds = (_a = this.idManager) === null || _a === void 0 ? void 0 : _a.dumpedIds;
         const treeIds = this.root.followers.map(obj => obj.id).filter(id => typeof id == 'number');
-        return max(treeIds);
+        const maxTreeId = max(treeIds);
+        if (!maxTreeId)
+            return 0;
+        return (dumpedIds === null || dumpedIds === void 0 ? void 0 : dumpedIds.includes(maxTreeId)) ? maxTreeId + 1 : maxTreeId;
     }
     addSons(...sons) {
         var _a;

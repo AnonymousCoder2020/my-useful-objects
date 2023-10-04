@@ -14,7 +14,7 @@ declare class NestIdObj extends Init<NestIdObj> {
     clearId(): void;
     get root(): NestIdObj;
     setSons(callback?: SetSonsCallback): void;
-    get lastId(): number | undefined;
+    get lastId(): number;
     addSons(...sons: NestIdObj[]): void;
     d(): number;
 }
