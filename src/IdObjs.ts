@@ -1,10 +1,10 @@
 import { isInteger } from 'lodash-es'
-import { PlainAnyObject } from 'my-useful-type'
+import { PlainAnyObj } from 'my-useful-type'
 import cleanIntId from './lib/cleanIntId'
 
-export type WithId<T extends PlainAnyObject> = T & { id: number }
+export type WithId<T extends PlainAnyObj> = T & { id: number }
 
-export default class<I extends PlainAnyObject & { id?: number }> {
+export default class<I extends PlainAnyObj & { id?: number }> {
   constructor(initialValues?: I[]) {
     if (initialValues) this.mapIdForAdd(initialValues, mappedInitialValues => (this.values = mappedInitialValues))
   }
@@ -12,7 +12,7 @@ export default class<I extends PlainAnyObject & { id?: number }> {
   cleanId() {
     return cleanIntId(this.values, {
       getter: item => item.id,
-      setter: (item, newId) => (item.id = newId),
+      setter: (item, newId) => (item.id = newId)
     })
   }
   private mapIdForAdd(items: I[], callback: (mapedItems: WithId<I>[]) => unknown) {

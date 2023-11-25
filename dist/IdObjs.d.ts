@@ -1,8 +1,8 @@
-import { PlainAnyObject } from 'my-useful-type';
-export type WithId<T extends PlainAnyObject> = T & {
+import { PlainAnyObj } from 'my-useful-type';
+export type WithId<T extends PlainAnyObj> = T & {
     id: number;
 };
-export default class<I extends PlainAnyObject & {
+export default class<I extends PlainAnyObj & {
     id?: number;
 }> {
     constructor(initialValues?: I[]);

@@ -9,7 +9,7 @@ export default class {
     cleanId() {
         return cleanIntId(this.values, {
             getter: item => item.id,
-            setter: (item, newId) => (item.id = newId),
+            setter: (item, newId) => (item.id = newId)
         });
     }
     mapIdForAdd(items, callback) {
