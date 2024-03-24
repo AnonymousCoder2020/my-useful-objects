@@ -1,9 +1,9 @@
 import { max } from 'lodash-es'
 import { eachRecur } from 'next-ts-utility'
-import { IdManager, Init } from '.'
-import cleanIntId from './lib/cleanIntId'
+import { Init, IntIdManager } from '.'
+import cleanIntId, { CleanMode } from './lib/cleanIntId'
 
-type SetSonsCallback = (children: NestIdObj[], idManager: IdManager) => NestIdObj[]
+type SetSonsCallback = (children: NestIdObj[], idManager: IntIdManager) => NestIdObj[]
 
 class NestIdObj extends Init<NestIdObj> {
   name?: string
@@ -11,8 +11,8 @@ class NestIdObj extends Init<NestIdObj> {
   open?: boolean = true
   boss?: NestIdObj
   sons?: NestIdObj[]
-  idManager?: IdManager
-  constructor() {
+  idManager?: IntIdManager
+  constructor(public cleanMode: CleanMode) {
     super()
   }
   toggleOpen() {
@@ -22,15 +22,13 @@ class NestIdObj extends Init<NestIdObj> {
     return eachRecur(this as NestIdObj, node => node.sons)
   }
   private cleanIdOnTop() {
-    const nodes = this.followers
-    this.idManager = cleanIntId(nodes, {
-      getter: node => node.id,
-      setter: (node, id) => (node.id = id),
+    this.idManager = cleanIntId(this.cleanMode, this.followers, {
+      get: node => node.id,
+      set: (node, id) => (node.id = id)
     })
   }
-  clearId() {
-    const { root } = this
-    ;(root ?? this).cleanIdOnTop()
+  cleanId() {
+    ;(this.root ?? this).cleanIdOnTop()
   }
   get root() {
     let parent = this.boss
@@ -45,12 +43,12 @@ class NestIdObj extends Init<NestIdObj> {
     const { sons, root } = this
     if (!root.idManager) root.cleanIdOnTop()
     const createCopy = () => sons?.slice() ?? []
-    const newSons = callback?.(createCopy(), root.idManager as IdManager) ?? createCopy()
+    const newSons = callback?.(createCopy(), root.idManager as IntIdManager) ?? createCopy()
     newSons.forEach(child => (child.boss = this))
     this.sons = newSons
   }
   get lastId() {
-    const dumpedIds = this.idManager?.dumpedIds
+    const dumpedIds = this.idManager?.dumps
     const treeIds = this.root.followers.map(obj => obj.id).filter(id => typeof id == 'number')
     const maxTreeId = max(treeIds)
     if (!maxTreeId) return 0

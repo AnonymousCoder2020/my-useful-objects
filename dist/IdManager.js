@@ -1,4 +1,6 @@
 class NumberIdManager {
+    currentId;
+    dumpedIds;
     constructor(currentId = 0, dumpedIds) {
         this.currentId = currentId;
         this.dumpedIds = dumpedIds;

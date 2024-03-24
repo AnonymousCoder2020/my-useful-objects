@@ -1,18 +1,18 @@
 import { isInteger } from 'lodash-es'
-import { PlainAnyObj } from 'my-useful-type'
-import cleanIntId from './lib/cleanIntId'
+import { PlainAnyObj } from 'next-type-utility'
+import cleanIntId, { CleanMode } from './lib/cleanIntId'
 
 export type WithId<T extends PlainAnyObj> = T & { id: number }
 
 export default class<I extends PlainAnyObj & { id?: number }> {
-  constructor(initialValues?: I[]) {
+  constructor(public cleanMode: CleanMode, initialValues?: I[]) {
     if (initialValues) this.mapIdForAdd(initialValues, mappedInitialValues => (this.values = mappedInitialValues))
   }
   values: WithId<I>[] = []
   cleanId() {
-    return cleanIntId(this.values, {
-      getter: item => item.id,
-      setter: (item, newId) => (item.id = newId)
+    return cleanIntId(this.cleanMode, this.values, {
+      get: item => item.id,
+      set: (item, newId) => (item.id = newId)
     })
   }
   private mapIdForAdd(items: I[], callback: (mapedItems: WithId<I>[]) => unknown) {

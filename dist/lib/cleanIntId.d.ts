@@ -1,7 +1,8 @@
-import IdManager from '../IdManager';
+import IntIdManager from '../IntIdManager';
 interface ProcessOption<T extends unknown> {
-    getter: (item: T) => unknown;
-    setter: (item: T, id: number) => unknown;
+    get: (item: T) => unknown;
+    set: (item: T, id: number) => unknown;
 }
-declare const _default: <T extends unknown>(items: T[], { getter, setter }: ProcessOption<T>) => IdManager;
+export type CleanMode = 'reuse' | 'skip';
+declare const _default: <T extends unknown>(type: CleanMode, items: T[], { get, set }: ProcessOption<T>) => IntIdManager;
 export default _default;

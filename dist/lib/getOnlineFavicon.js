@@ -65,7 +65,7 @@ const getFaviconsFromHead = async (url, d) => {
         }
         return { size, href, exists };
     })))
-        .filter((icon) => Boolean(icon) && typeof (icon === null || icon === void 0 ? void 0 : icon.href) == 'string')
+        .filter((icon) => Boolean(icon) && typeof icon?.href == 'string')
         .sort((a, b) => (b.size || 0) - (a.size || 0));
 };
 // URL先にあるHTMLページのhead要素からファビコンURLを抽出し、maxSize(上限サイズ)を満たすものを取得

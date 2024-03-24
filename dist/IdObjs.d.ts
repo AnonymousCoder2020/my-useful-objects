@@ -1,13 +1,15 @@
-import { PlainAnyObj } from 'my-useful-type';
+import { PlainAnyObj } from 'next-type-utility';
+import { CleanMode } from './lib/cleanIntId';
 export type WithId<T extends PlainAnyObj> = T & {
     id: number;
 };
 export default class<I extends PlainAnyObj & {
     id?: number;
 }> {
-    constructor(initialValues?: I[]);
+    cleanMode: CleanMode;
+    constructor(cleanMode: CleanMode, initialValues?: I[]);
     values: WithId<I>[];
-    cleanId(): import("./IdManager").default;
+    cleanId(): import("~/IntIdManager").default;
     private mapIdForAdd;
     adds(...items: I[]): void;
     unshift(...items: I[]): void;

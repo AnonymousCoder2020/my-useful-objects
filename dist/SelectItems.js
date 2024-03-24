@@ -1,11 +1,14 @@
 import Init from './Init';
 export default class SelectionItems extends Init {
+    items;
+    getIdDef;
+    select = new Set();
+    range = new Set();
+    pinId;
     constructor(items, getIdDef, option) {
         super();
         this.items = items;
         this.getIdDef = getIdDef;
-        this.select = new Set();
-        this.range = new Set();
         option && Object.assign(this, option);
         this.clean();
     }
@@ -13,9 +16,8 @@ export default class SelectionItems extends Init {
         return [...this.select, ...this.range];
     }
     getId(idx) {
-        var _a;
         const targetItem = this.items[idx];
-        if ((_a = !targetItem) !== null && _a !== void 0 ? _a : false) {
+        if (!targetItem ?? false) {
             console.warn(`インデックス: ${idx} のアイテムは存在しません。\nアイテム: ${JSON.stringify(targetItem)}`);
             return;
         }

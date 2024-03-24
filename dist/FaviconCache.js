@@ -1,5 +1,6 @@
 import GetOnlineFavicon from './lib/getOnlineFavicon';
 class FaviconCache {
+    list;
     constructor(list = {}) {
         this.list = list;
     }

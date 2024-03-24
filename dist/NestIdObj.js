@@ -3,9 +3,16 @@ import { eachRecur } from 'next-ts-utility';
 import { Init } from '.';
 import cleanIntId from './lib/cleanIntId';
 class NestIdObj extends Init {
-    constructor() {
+    cleanMode;
+    name;
+    id;
+    open = true;
+    boss;
+    sons;
+    idManager;
+    constructor(cleanMode) {
         super();
-        this.open = true;
+        this.cleanMode = cleanMode;
     }
     toggleOpen() {
         this.open = !this.open;
@@ -14,15 +21,14 @@ class NestIdObj extends Init {
         return eachRecur(this, node => node.sons);
     }
     cleanIdOnTop() {
-        const nodes = this.followers;
-        this.idManager = cleanIntId(nodes, {
-            getter: node => node.id,
-            setter: (node, id) => (node.id = id),
+        this.idManager = cleanIntId(this.cleanMode, this.followers, {
+            get: node => node.id,
+            set: (node, id) => (node.id = id)
         });
     }
-    clearId() {
-        const { root } = this;
-        (root !== null && root !== void 0 ? root : this).cleanIdOnTop();
+    cleanId() {
+        ;
+        (this.root ?? this).cleanIdOnTop();
     }
     get root() {
         let parent = this.boss;
@@ -34,31 +40,28 @@ class NestIdObj extends Init {
         return prev;
     }
     setSons(callback) {
-        var _a;
         const { sons, root } = this;
         if (!root.idManager)
             root.cleanIdOnTop();
-        const createCopy = () => { var _a; return (_a = sons === null || sons === void 0 ? void 0 : sons.slice()) !== null && _a !== void 0 ? _a : []; };
-        const newSons = (_a = callback === null || callback === void 0 ? void 0 : callback(createCopy(), root.idManager)) !== null && _a !== void 0 ? _a : createCopy();
+        const createCopy = () => sons?.slice() ?? [];
+        const newSons = callback?.(createCopy(), root.idManager) ?? createCopy();
         newSons.forEach(child => (child.boss = this));
         this.sons = newSons;
     }
     get lastId() {
-        var _a;
-        const dumpedIds = (_a = this.idManager) === null || _a === void 0 ? void 0 : _a.dumpedIds;
+        const dumpedIds = this.idManager?.dumps;
         const treeIds = this.root.followers.map(obj => obj.id).filter(id => typeof id == 'number');
         const maxTreeId = max(treeIds);
         if (!maxTreeId)
             return 0;
-        return (dumpedIds === null || dumpedIds === void 0 ? void 0 : dumpedIds.includes(maxTreeId)) ? maxTreeId + 1 : maxTreeId;
+        return dumpedIds?.includes(maxTreeId) ? maxTreeId + 1 : maxTreeId;
     }
     addSons(...sons) {
-        var _a;
         const lastId = this.lastId;
         if (!lastId)
             return;
         sons.map((son, i) => (son.id = lastId + i));
-        this.sons = ((_a = this.sons) !== null && _a !== void 0 ? _a : []).concat(sons);
+        this.sons = (this.sons ?? []).concat(sons);
     }
     d() {
         let boss = this.boss;

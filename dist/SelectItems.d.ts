@@ -1,4 +1,4 @@
-import { ClassPropsPartial } from 'my-useful-type';
+import { ClassPropsPartial } from 'next-type-utility';
 import Init from './Init';
 export type Id = string | number;
 type GetIdDef<T, I extends Id> = (item: T) => I;

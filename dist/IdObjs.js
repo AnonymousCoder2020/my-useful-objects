@@ -1,15 +1,17 @@
 import { isInteger } from 'lodash-es';
 import cleanIntId from './lib/cleanIntId';
 export default class {
-    constructor(initialValues) {
-        this.values = [];
+    cleanMode;
+    constructor(cleanMode, initialValues) {
+        this.cleanMode = cleanMode;
         if (initialValues)
             this.mapIdForAdd(initialValues, mappedInitialValues => (this.values = mappedInitialValues));
     }
+    values = [];
     cleanId() {
-        return cleanIntId(this.values, {
-            getter: item => item.id,
-            setter: (item, newId) => (item.id = newId)
+        return cleanIntId(this.cleanMode, this.values, {
+            get: item => item.id,
+            set: (item, newId) => (item.id = newId)
         });
     }
     mapIdForAdd(items, callback) {

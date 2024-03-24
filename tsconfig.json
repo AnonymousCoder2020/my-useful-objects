@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "es2019",
+    "target": "ESNext",
     "strict": true,
     "skipLibCheck": true,
-    "module": "esnext",
+    "module": "ESNext",
     "rootDir": "./src",
     "outDir": "./dist/",
     "moduleResolution": "Node",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "alwaysStrict": true,
@@ -21,11 +22,7 @@
       "~lib/*": ["src/lib/*"],
       "*": ["node_modules/@types/*", "types/*"]
     },
-    "plugins": [
-      {
-        "name": "typescript-styled-plugin"
-      }
-    ],
+    "plugins": [{ "name": "typescript-styled-plugin" }],
     "experimentalDecorators": true
   },
   "include": ["src", "test/get-document.test.ts"],

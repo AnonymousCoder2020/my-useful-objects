@@ -1,28 +1,27 @@
 import { between } from 'next-ts-utility';
-import IdManager from '../IdManager';
-export default (items, { getter, setter }) => {
+import IntIdManager from '../IntIdManager';
+export default (type, items, { get, set }) => {
     const usedIdSet = new Set();
-    const vaildIdItemIdxes = [];
-    items.forEach((item, i) => {
-        const id = getter(item);
-        if (typeof id !== 'number' || !Number.isInteger(id) || id < 0 || usedIdSet.has(id)) {
-            vaildIdItemIdxes.push(i);
-            return;
-        }
-        usedIdSet.add(id);
+    const invalidIdItems = [];
+    items.forEach(item => {
+        const id = get(item);
+        if (typeof id !== 'number' || !Number.isInteger(id) || id < 0 || usedIdSet.has(id))
+            invalidIdItems.push(item);
+        else
+            usedIdSet.add(id);
     });
     const usedIds = [...usedIdSet];
     const nextId = usedIds.length ? Math.max(...usedIds) + 1 : 0;
-    const vaildIdItems = items.filter((_, i) => vaildIdItemIdxes.includes(i));
     const notUsedIds = [];
     usedIds.length &&
-        usedIds
+        [-1]
+            .concat(usedIds)
             .sort((a, b) => a - b)
             .reduce((acc, cur) => {
-            notUsedIds.splice(notUsedIds.length, 0, ...between(acc, cur));
+            notUsedIds.push(...between(acc, cur));
             return cur;
         });
-    const idManager = new IdManager(nextId, notUsedIds);
-    vaildIdItems.forEach(vaildIdItem => setter(vaildIdItem, idManager.use()));
+    const idManager = new IntIdManager(nextId, notUsedIds);
+    invalidIdItems.forEach(invalidIdItem => set(invalidIdItem, type == 'reuse' ? idManager.reuse() : idManager.use()));
     return idManager;
 };

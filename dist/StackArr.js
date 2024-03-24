@@ -1,7 +1,5 @@
 export default class {
-    constructor() {
-        this.v = [];
-    }
+    v = [];
     unshift(...items) {
         return this.v.unshift(...items);
     }
