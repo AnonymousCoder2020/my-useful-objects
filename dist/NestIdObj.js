@@ -1,6 +1,5 @@
-import { max } from 'lodash-es';
 import { eachRecur } from 'next-ts-utility';
-import { Init } from '.';
+import { Init, IntIdManager } from '.';
 import cleanIntId from './lib/cleanIntId';
 class NestIdObj extends Init {
     cleanMode;
@@ -14,56 +13,7 @@ class NestIdObj extends Init {
         super();
         this.cleanMode = cleanMode;
     }
-    toggleOpen() {
-        this.open = !this.open;
-    }
-    get followers() {
-        return eachRecur(this, node => node.sons);
-    }
-    cleanIdOnTop() {
-        this.idManager = cleanIntId(this.cleanMode, this.followers, {
-            get: node => node.id,
-            set: (node, id) => (node.id = id)
-        });
-    }
-    cleanId() {
-        ;
-        (this.root ?? this).cleanIdOnTop();
-    }
-    get root() {
-        let parent = this.boss;
-        let prev = this;
-        while (parent) {
-            prev = parent; //前の内容を保存
-            parent = parent.boss;
-        }
-        return prev;
-    }
-    setSons(callback) {
-        const { sons, root } = this;
-        if (!root.idManager)
-            root.cleanIdOnTop();
-        const createCopy = () => sons?.slice() ?? [];
-        const newSons = callback?.(createCopy(), root.idManager) ?? createCopy();
-        newSons.forEach(child => (child.boss = this));
-        this.sons = newSons;
-    }
-    get lastId() {
-        const dumpedIds = this.idManager?.dumps;
-        const treeIds = this.root.followers.map(obj => obj.id).filter(id => typeof id == 'number');
-        const maxTreeId = max(treeIds);
-        if (!maxTreeId)
-            return 0;
-        return dumpedIds?.includes(maxTreeId) ? maxTreeId + 1 : maxTreeId;
-    }
-    addSons(...sons) {
-        const lastId = this.lastId;
-        if (!lastId)
-            return;
-        sons.map((son, i) => (son.id = lastId + i));
-        this.sons = (this.sons ?? []).concat(sons);
-    }
-    d() {
+    get d() {
         let boss = this.boss;
         let d = 0;
         while (boss) {
@@ -71,6 +21,71 @@ class NestIdObj extends Init {
             boss = boss.boss;
         }
         return d;
+    }
+    get followers() {
+        return eachRecur(this, node => node.sons);
+    }
+    get root() {
+        let boss = this;
+        while (boss?.boss)
+            boss = boss.boss;
+        return boss;
+    }
+    toggleOpen() {
+        this.open = !this.open;
+        return this;
+    }
+    cleanIdOnTop() {
+        this.idManager = cleanIntId(this.cleanMode, this.followers, {
+            get: node => node.id,
+            set: (node, id) => (node.id = id)
+        });
+        return this;
+    }
+    cleanId() {
+        ;
+        (this.root ?? this).cleanIdOnTop();
+        return this;
+    }
+    isSonOf(bossOrNot) {
+        let boss = this.boss;
+        while (boss) {
+            if (boss == bossOrNot)
+                return true;
+            boss = boss.boss;
+        }
+        return false;
+    }
+    opeSons(callback) {
+        const { sons, root } = this;
+        if (!root.idManager)
+            root.cleanIdOnTop();
+        const createCopy = () => sons?.slice() ?? [];
+        const newSons = callback(createCopy(), root.idManager) ?? createCopy();
+        newSons.forEach(child => (child.boss = this));
+        this.sons = newSons;
+        return this;
+    }
+    addSons(addSons, callback) {
+        this.opeSons((sons, idManager) => {
+            for (const addSon of addSons) {
+                addSon.id = idManager.use();
+                addSon.boss = this;
+            }
+            return callback(sons, addSons);
+        });
+        return this;
+    }
+    delSons(delSons) {
+        this.opeSons((sons, idManager) => {
+            for (const delSon of delSons) {
+                if (IntIdManager.isValidId(delSon.id))
+                    idManager.dump(delSon.id);
+                delSon.boss = undefined;
+            }
+            return sons.filter(son => !delSons.includes(son));
+        });
+        return this;
     }
 }
 export default NestIdObj;
