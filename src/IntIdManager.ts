@@ -6,7 +6,7 @@ class IntIdManager {
   use() {
     let useId = this.nextId
     while (this.dumps.includes(useId)) useId++
-    this.nextId = useId
+    this.nextId = useId + 1
     return useId
   }
   reuse() {
