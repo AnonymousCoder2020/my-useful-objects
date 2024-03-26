@@ -1,13 +1,13 @@
 import { Init, IntIdManager } from '.';
 import { CleanMode } from './lib/cleanIntId';
-type AddSonsCallback = (sons: NestIdObj[], addSons: NestIdObj[]) => NestIdObj[];
+type AddSonsCallback = (subs: NestIdObj[], addSons: NestIdObj[]) => NestIdObj[];
 declare class NestIdObj extends Init<NestIdObj> {
     cleanMode: CleanMode;
     name?: string;
     id?: number;
     open?: boolean;
     boss?: NestIdObj;
-    sons?: NestIdObj[];
+    subs?: NestIdObj[];
     idManager?: IntIdManager;
     constructor(cleanMode: CleanMode);
     get d(): number;

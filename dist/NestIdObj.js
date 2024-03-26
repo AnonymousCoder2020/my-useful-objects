@@ -7,7 +7,7 @@ class NestIdObj extends Init {
     id;
     open = true;
     boss;
-    sons;
+    subs;
     idManager;
     constructor(cleanMode) {
         super();
@@ -23,7 +23,7 @@ class NestIdObj extends Init {
         return d;
     }
     get followers() {
-        return eachRecur(this, node => node.sons);
+        return eachRecur(this, node => node.subs);
     }
     get root() {
         let boss = this;
@@ -57,33 +57,33 @@ class NestIdObj extends Init {
         return false;
     }
     opeSons(callback) {
-        const { sons, root } = this;
+        const { subs, root } = this;
         if (!root.idManager)
             root.cleanIdOnTop();
-        const createCopy = () => sons?.slice() ?? [];
+        const createCopy = () => subs?.slice() ?? [];
         const newSons = callback(createCopy(), root.idManager) ?? createCopy();
         newSons.forEach(child => (child.boss = this));
-        this.sons = newSons;
+        this.subs = newSons;
         return this;
     }
     addSons(addSons, callback) {
-        this.opeSons((sons, idManager) => {
+        this.opeSons((subs, idManager) => {
             for (const addSon of addSons) {
                 addSon.id = idManager.use();
                 addSon.boss = this;
             }
-            return callback(sons, addSons);
+            return callback(subs, addSons);
         });
         return this;
     }
     delSons(delSons) {
-        this.opeSons((sons, idManager) => {
+        this.opeSons((subs, idManager) => {
             for (const delSon of delSons) {
                 if (IntIdManager.isValidId(delSon.id))
                     idManager.dump(delSon.id);
                 delSon.boss = undefined;
             }
-            return sons.filter(son => !delSons.includes(son));
+            return subs.filter(son => !delSons.includes(son));
         });
         return this;
     }
