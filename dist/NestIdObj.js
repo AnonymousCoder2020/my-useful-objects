@@ -47,7 +47,7 @@ class NestIdObj extends Init {
         (this.root ?? this).cleanIdOnTop();
         return this;
     }
-    isSonOf(bossOrNot) {
+    isSubOf(bossOrNot) {
         let boss = this.boss;
         while (boss) {
             if (boss == bossOrNot)
