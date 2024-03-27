@@ -20,6 +20,7 @@ declare class NestIdObj extends Init<NestIdObj> {
     private opeSubs;
     addSubs(addSubs: NestIdObj[], callback: AddSonsCallback): this;
     delSubs(delSubs: NestIdObj[]): this;
+    insertSubs(insertSubs: NestIdObj[], idx: number): this;
     del(): this;
 }
 export default NestIdObj;
