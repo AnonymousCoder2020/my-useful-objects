@@ -4,7 +4,7 @@ import cleanIntId, { CleanMode } from './lib/cleanIntId'
 
 type OpeSonsCallback = (children: NestIdObj[], idManager: IntIdManager) => NestIdObj[]
 
-type AddSonsCallback = (subs: NestIdObj[], addSons: NestIdObj[]) => NestIdObj[]
+type AddSonsCallback = (subs: NestIdObj[], addSubs: NestIdObj[]) => NestIdObj[]
 
 class NestIdObj extends Init<NestIdObj> {
   name?: string
@@ -56,37 +56,37 @@ class NestIdObj extends Init<NestIdObj> {
     }
     return false
   }
-  private opeSons(callback: OpeSonsCallback) {
+  private opeSubs(callback: OpeSonsCallback) {
     const { subs, root } = this
     if (!root.idManager) root.cleanIdOnTop()
     const createCopy = () => subs?.slice() ?? []
-    const newSons = callback(createCopy(), root.idManager as IntIdManager) ?? createCopy()
-    newSons.forEach(child => (child.boss = this))
-    this.subs = newSons
+    const newSubs = callback(createCopy(), root.idManager as IntIdManager) ?? createCopy()
+    newSubs.forEach(child => (child.boss = this))
+    this.subs = newSubs
     return this
   }
-  addSons(addSons: NestIdObj[], callback: AddSonsCallback) {
-    this.opeSons((subs, idManager) => {
-      for (const addSon of addSons) {
-        addSon.id = idManager.use()
-        addSon.boss = this
+  addSubs(addSubs: NestIdObj[], callback: AddSonsCallback) {
+    this.opeSubs((subs, idManager) => {
+      for (const addSub of addSubs) {
+        addSub.id = idManager.use()
+        addSub.boss = this
       }
-      return callback(subs, addSons)
+      return callback(subs, addSubs)
     })
     return this
   }
-  delSons(delSons: NestIdObj[]) {
-    this.opeSons((subs, idManager) => {
-      for (const delSon of delSons) {
-        if (IntIdManager.isValidId(delSon.id)) idManager.dump(delSon.id)
-        delSon.boss = undefined
+  delSubs(delSubs: NestIdObj[]) {
+    this.opeSubs((subs, idManager) => {
+      for (const delSub of delSubs) {
+        if (IntIdManager.isValidId(delSub.id)) idManager.dump(delSub.id)
+        delSub.boss = undefined
       }
-      return subs.filter(son => !delSons.includes(son))
+      return subs.filter(son => !delSubs.includes(son))
     })
     return this
   }
   del() {
-    this.boss?.delSons([this])
+    this.boss?.delSubs([this])
     return this
   }
 }

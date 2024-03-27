@@ -56,39 +56,39 @@ class NestIdObj extends Init {
         }
         return false;
     }
-    opeSons(callback) {
+    opeSubs(callback) {
         const { subs, root } = this;
         if (!root.idManager)
             root.cleanIdOnTop();
         const createCopy = () => subs?.slice() ?? [];
-        const newSons = callback(createCopy(), root.idManager) ?? createCopy();
-        newSons.forEach(child => (child.boss = this));
-        this.subs = newSons;
+        const newSubs = callback(createCopy(), root.idManager) ?? createCopy();
+        newSubs.forEach(child => (child.boss = this));
+        this.subs = newSubs;
         return this;
     }
-    addSons(addSons, callback) {
-        this.opeSons((subs, idManager) => {
-            for (const addSon of addSons) {
-                addSon.id = idManager.use();
-                addSon.boss = this;
+    addSubs(addSubs, callback) {
+        this.opeSubs((subs, idManager) => {
+            for (const addSub of addSubs) {
+                addSub.id = idManager.use();
+                addSub.boss = this;
             }
-            return callback(subs, addSons);
+            return callback(subs, addSubs);
         });
         return this;
     }
-    delSons(delSons) {
-        this.opeSons((subs, idManager) => {
-            for (const delSon of delSons) {
-                if (IntIdManager.isValidId(delSon.id))
-                    idManager.dump(delSon.id);
-                delSon.boss = undefined;
+    delSubs(delSubs) {
+        this.opeSubs((subs, idManager) => {
+            for (const delSub of delSubs) {
+                if (IntIdManager.isValidId(delSub.id))
+                    idManager.dump(delSub.id);
+                delSub.boss = undefined;
             }
-            return subs.filter(son => !delSons.includes(son));
+            return subs.filter(son => !delSubs.includes(son));
         });
         return this;
     }
     del() {
-        this.boss?.delSons([this]);
+        this.boss?.delSubs([this]);
         return this;
     }
 }

@@ -1,6 +1,6 @@
 import { Init, IntIdManager } from '.';
 import { CleanMode } from './lib/cleanIntId';
-type AddSonsCallback = (subs: NestIdObj[], addSons: NestIdObj[]) => NestIdObj[];
+type AddSonsCallback = (subs: NestIdObj[], addSubs: NestIdObj[]) => NestIdObj[];
 declare class NestIdObj extends Init<NestIdObj> {
     cleanMode: CleanMode;
     name?: string;
@@ -17,9 +17,9 @@ declare class NestIdObj extends Init<NestIdObj> {
     private cleanIdOnTop;
     cleanId(): this;
     isSonOf(bossOrNot: NestIdObj): boolean;
-    private opeSons;
-    addSons(addSons: NestIdObj[], callback: AddSonsCallback): this;
-    delSons(delSons: NestIdObj[]): this;
+    private opeSubs;
+    addSubs(addSubs: NestIdObj[], callback: AddSonsCallback): this;
+    delSubs(delSubs: NestIdObj[]): this;
     del(): this;
 }
 export default NestIdObj;
