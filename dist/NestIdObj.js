@@ -87,5 +87,9 @@ class NestIdObj extends Init {
         });
         return this;
     }
+    del() {
+        this.boss?.delSons([this]);
+        return this;
+    }
 }
 export default NestIdObj;

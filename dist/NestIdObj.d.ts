@@ -20,5 +20,6 @@ declare class NestIdObj extends Init<NestIdObj> {
     private opeSons;
     addSons(addSons: NestIdObj[], callback: AddSonsCallback): this;
     delSons(delSons: NestIdObj[]): this;
+    del(): this;
 }
 export default NestIdObj;
