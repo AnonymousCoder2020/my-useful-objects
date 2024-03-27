@@ -85,8 +85,12 @@ class NestIdObj extends Init<NestIdObj> {
     })
     return this
   }
-  insertSubs(insertSubs: NestIdObj[], idx: number) {
+  insertSubs(idx: number, ...insertSubs: NestIdObj[]) {
     this.addSubs(insertSubs, (subs, addSubs) => subs.toSpliced(idx, 0, ...addSubs))
+    return this
+  }
+  pushSubs(...pushSubs: NestIdObj[]) {
+    this.addSubs(pushSubs, (subs, addSubs) => subs.toSpliced(subs.length, 0, ...addSubs))
     return this
   }
   del() {
