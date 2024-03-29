@@ -42,11 +42,10 @@ class NestIdObj extends Init<NestIdObj> {
       get: node => node.id,
       set: (node, id) => (node.id = id)
     })
-    return this
+    return this.idManager
   }
   cleanId() {
-    ;(this.root ?? this).cleanIdOnTop()
-    return this
+    return (this.root ?? this).cleanIdOnTop()
   }
   isSubOf(bossOrNot: NestIdObj) {
     let boss = this.boss

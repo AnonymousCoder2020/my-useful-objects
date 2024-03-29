@@ -15,7 +15,7 @@ declare class NestIdObj extends Init<NestIdObj> {
     get root(): NestIdObj;
     toggleOpen(): this;
     private cleanIdOnTop;
-    cleanId(): this;
+    cleanId(): IntIdManager;
     isSubOf(bossOrNot: NestIdObj): boolean;
     private opeSubs;
     addSubs(addSubs: NestIdObj[], callback: AddSonsCallback): this;
