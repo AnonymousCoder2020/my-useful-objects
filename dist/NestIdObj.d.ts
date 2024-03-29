@@ -1,27 +1,23 @@
-import { Init, IntIdManager } from '.';
+import { ClassPropsPartial } from 'next-type-utility';
+import { IntIdManager } from '.';
+import LeafIdObj from './LeafIdObj';
 import { CleanMode } from './lib/cleanIntId';
-type AddSonsCallback = (subs: NestIdObj[], addSubs: NestIdObj[]) => NestIdObj[];
-declare class NestIdObj extends Init<NestIdObj> {
+type AddSonsCallback = (subs: IdObj[], addSubs: IdObj[]) => IdObj[];
+type IdObj = LeafIdObj | NestIdObj;
+declare class NestIdObj extends LeafIdObj {
     cleanMode: CleanMode;
-    name?: string;
-    id?: number;
     open?: boolean;
-    boss?: NestIdObj;
-    subs?: NestIdObj[];
+    subs?: (NestIdObj | LeafIdObj)[];
     idManager?: IntIdManager;
-    constructor(cleanMode: CleanMode);
-    get d(): number;
-    get followers(): NestIdObj[];
+    constructor(cleanMode: CleanMode, init: ClassPropsPartial<NestIdObj>);
+    get followers(): (LeafIdObj | NestIdObj)[];
     get root(): NestIdObj;
     toggleOpen(): this;
-    private cleanIdOnTop;
-    cleanId(): IntIdManager;
-    isSubOf(bossOrNot: NestIdObj): boolean;
+    cleanIdOnTop(): IntIdManager;
     private opeSubs;
-    addSubs(addSubs: NestIdObj[], callback: AddSonsCallback): this;
-    delSubs(delSubs: NestIdObj[]): this;
-    insertSubs(idx: number, ...insertSubs: NestIdObj[]): this;
-    pushSubs(...pushSubs: NestIdObj[]): this;
-    del(): this;
+    addSubs(addSubs: IdObj[], callback: AddSonsCallback): this;
+    delSubs(delSubs: IdObj[]): this;
+    insertSubs(idx: number, ...insertSubs: IdObj[]): this;
+    pushSubs(...pushSubs: IdObj[]): this;
 }
 export default NestIdObj;

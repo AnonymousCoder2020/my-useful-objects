@@ -1,3 +1,4 @@
+// 非推奨
 import { isInteger } from 'lodash-es'
 import { PlainAnyObj } from 'next-type-utility'
 import cleanIntId, { CleanMode } from './lib/cleanIntId'

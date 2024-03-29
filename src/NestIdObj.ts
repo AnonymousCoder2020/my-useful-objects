@@ -1,32 +1,25 @@
 import { eachRecur } from 'next-ts-utility'
-import { Init, IntIdManager } from '.'
+import { ClassPropsPartial } from 'next-type-utility'
+import { IntIdManager } from '.'
+import LeafIdObj from './LeafIdObj'
 import cleanIntId, { CleanMode } from './lib/cleanIntId'
 
-type OpeSonsCallback = (children: NestIdObj[], idManager: IntIdManager) => NestIdObj[]
+type OpeSonsCallback = (subs: IdObj[], idManager: IntIdManager) => IdObj[]
 
-type AddSonsCallback = (subs: NestIdObj[], addSubs: NestIdObj[]) => NestIdObj[]
+type AddSonsCallback = (subs: IdObj[], addSubs: IdObj[]) => IdObj[]
 
-class NestIdObj extends Init<NestIdObj> {
-  name?: string
-  id?: number
+type IdObj = LeafIdObj | NestIdObj
+
+class NestIdObj extends LeafIdObj {
   open?: boolean = true
-  boss?: NestIdObj
-  subs?: NestIdObj[]
+  subs?: (NestIdObj | LeafIdObj)[]
   idManager?: IntIdManager
-  constructor(public cleanMode: CleanMode) {
-    super()
-  }
-  get d() {
-    let boss = this.boss
-    let d = 0
-    while (boss) {
-      d++
-      boss = boss.boss
-    }
-    return d
+  constructor(public cleanMode: CleanMode, init: ClassPropsPartial<NestIdObj>) {
+    super(init)
+    Object.assign(this, init)
   }
   get followers() {
-    return eachRecur(this as NestIdObj, node => node.subs)
+    return eachRecur(this as NestIdObj | LeafIdObj, node => (node instanceof NestIdObj ? node.subs : []))
   }
   get root() {
     let boss = this as NestIdObj
@@ -37,23 +30,12 @@ class NestIdObj extends Init<NestIdObj> {
     this.open = !this.open
     return this
   }
-  private cleanIdOnTop() {
+  cleanIdOnTop() {
     this.idManager = cleanIntId(this.cleanMode, this.followers, {
       get: node => node.id,
       set: (node, id) => (node.id = id)
     })
     return this.idManager
-  }
-  cleanId() {
-    return (this.root ?? this).cleanIdOnTop()
-  }
-  isSubOf(bossOrNot: NestIdObj) {
-    let boss = this.boss
-    while (boss) {
-      if (boss == bossOrNot) return true
-      boss = boss.boss
-    }
-    return false
   }
   private opeSubs(callback: OpeSonsCallback) {
     const { subs, root } = this
@@ -64,7 +46,7 @@ class NestIdObj extends Init<NestIdObj> {
     this.subs = newSubs
     return this
   }
-  addSubs(addSubs: NestIdObj[], callback: AddSonsCallback) {
+  addSubs(addSubs: IdObj[], callback: AddSonsCallback) {
     this.opeSubs((subs, idManager) => {
       for (const addSub of addSubs) {
         addSub.id = idManager.use()
@@ -74,7 +56,7 @@ class NestIdObj extends Init<NestIdObj> {
     })
     return this
   }
-  delSubs(delSubs: NestIdObj[]) {
+  delSubs(delSubs: IdObj[]) {
     this.opeSubs((subs, idManager) => {
       for (const delSub of delSubs) {
         if (IntIdManager.isValidId(delSub.id)) idManager.dump(delSub.id)
@@ -84,16 +66,12 @@ class NestIdObj extends Init<NestIdObj> {
     })
     return this
   }
-  insertSubs(idx: number, ...insertSubs: NestIdObj[]) {
+  insertSubs(idx: number, ...insertSubs: IdObj[]) {
     this.addSubs(insertSubs, (subs, addSubs) => subs.toSpliced(idx, 0, ...addSubs))
     return this
   }
-  pushSubs(...pushSubs: NestIdObj[]) {
+  pushSubs(...pushSubs: IdObj[]) {
     this.addSubs(pushSubs, (subs, addSubs) => subs.toSpliced(subs.length, 0, ...addSubs))
-    return this
-  }
-  del() {
-    this.boss?.delSubs([this])
     return this
   }
 }
