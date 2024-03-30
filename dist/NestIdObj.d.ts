@@ -13,7 +13,8 @@ declare class NestIdObj extends LeafIdObj {
     get followers(): (LeafIdObj | NestIdObj)[];
     get root(): NestIdObj;
     toggleOpen(): this;
-    cleanIdOnTop(): IntIdManager;
+    cleanId(): IntIdManager;
+    private cleanIdOnTop;
     private opeSubs;
     addSubs(addSubs: IdObj[], callback: AddSonsCallback): this;
     delSubs(delSubs: IdObj[]): this;

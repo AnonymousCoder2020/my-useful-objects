@@ -32,10 +32,6 @@ class LeafIdObj {
     }
     return false
   }
-  cleanId() {
-    const { root } = this
-    if (root instanceof NestIdObj) return root.cleanIdOnTop()
-  }
   del() {
     this.boss?.delSubs([this])
     return this

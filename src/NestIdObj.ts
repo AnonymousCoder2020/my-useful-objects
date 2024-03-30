@@ -30,7 +30,10 @@ class NestIdObj extends LeafIdObj {
     this.open = !this.open
     return this
   }
-  cleanIdOnTop() {
+  cleanId() {
+    return this.root.cleanIdOnTop()
+  }
+  private cleanIdOnTop() {
     this.idManager = cleanIntId(this.cleanMode, this.followers, {
       get: node => node.id,
       set: (node, id) => (node.id = id)

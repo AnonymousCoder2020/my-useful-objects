@@ -9,7 +9,6 @@ declare class LeafIdObj {
     get d(): number;
     get root(): IdObj;
     isSubOf(bossOrNot: NestIdObj): boolean;
-    cleanId(): import("~/IntIdManager").default | undefined;
     del(): this;
 }
 export default LeafIdObj;

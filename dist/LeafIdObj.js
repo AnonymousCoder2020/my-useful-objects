@@ -1,4 +1,3 @@
-import NestIdObj from './NestIdObj';
 class LeafIdObj {
     constructor(init) {
         Object.assign(this, init);
@@ -29,11 +28,6 @@ class LeafIdObj {
             boss = boss.boss;
         }
         return false;
-    }
-    cleanId() {
-        const { root } = this;
-        if (root instanceof NestIdObj)
-            return root.cleanIdOnTop();
     }
     del() {
         this.boss?.delSubs([this]);
