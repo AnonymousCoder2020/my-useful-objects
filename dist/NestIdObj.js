@@ -45,6 +45,9 @@ class NestIdObj extends LeafIdObj {
     addSubs(addSubs, callback) {
         this.opeSubs((subs, idManager) => {
             for (const addSub of addSubs) {
+                // 親が自分の子になることを防ぐ
+                if (addSub instanceof NestIdObj && this.isSubOf(addSub))
+                    continue;
                 addSub.id = idManager.use();
                 addSub.boss = this;
             }
@@ -55,6 +58,9 @@ class NestIdObj extends LeafIdObj {
     delSubs(delSubs) {
         this.opeSubs((subs, idManager) => {
             for (const delSub of delSubs) {
+                // 自分の子以外を削除してしまうのを防ぐ
+                if (!subs.includes(delSub))
+                    continue;
                 if (IntIdManager.isValidId(delSub.id))
                     idManager.dump(delSub.id);
                 delSub.boss = undefined;
