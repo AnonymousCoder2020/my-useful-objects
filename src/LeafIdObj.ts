@@ -1,5 +1,5 @@
 import { ClassPropsPartial } from 'next-type-utility'
-import NestIdObj from './NestIdObj'
+import type NestIdObj from './NestIdObj'
 
 type IdObj = LeafIdObj | NestIdObj
 

@@ -3695,11 +3695,12 @@ natural-compare@^1.4.0:
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
 "next-ts-utility@github:AnonymousCoder2020/next-ts-utility":
-  version "1.3.0"
-  resolved "https://codeload.github.com/AnonymousCoder2020/next-ts-utility/tar.gz/3763667d61d06a09b6eff8fff1008750ac005f92"
+  version "1.5.2"
+  resolved "https://codeload.github.com/AnonymousCoder2020/next-ts-utility/tar.gz/252a2f35dc6a6a20fe2cb300dbba38a285f38006"
   dependencies:
     dayjs "^1.11.7"
     lodash-es "^4.17.21"
+    next-type-utility "https://github.com/AnonymousCoder2020/next-type-utility"
     randexp "^0.5.3"
 
 "next-type-utility@https://github.com/AnonymousCoder2020/next-type-utility":

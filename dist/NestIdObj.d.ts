@@ -10,7 +10,7 @@ declare class NestIdObj extends LeafIdObj {
     subs?: (NestIdObj | LeafIdObj)[];
     idManager?: IntIdManager;
     constructor(cleanMode: CleanMode, init: ClassPropsPartial<NestIdObj>);
-    get followers(): (LeafIdObj | NestIdObj)[];
+    getSubTree(includeRoot?: false): IdObj[];
     get root(): NestIdObj;
     toggleOpen(): this;
     cleanId(): IntIdManager;
