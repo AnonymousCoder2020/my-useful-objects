@@ -3,7 +3,7 @@ import { IntIdManager } from '.';
 import LeafIdObj from './LeafIdObj';
 import { CleanMode } from './lib/cleanIntId';
 type AddSonsCallback = (subs: IdObj[], addSubs: IdObj[]) => IdObj[];
-type IdObj = LeafIdObj | NestIdObj;
+export type IdObj = LeafIdObj | NestIdObj;
 declare class NestIdObj extends LeafIdObj {
     cleanMode: CleanMode;
     open?: boolean;

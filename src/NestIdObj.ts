@@ -8,7 +8,7 @@ type OpeSonsCallback = (subs: IdObj[], idManager: IntIdManager) => IdObj[]
 
 type AddSonsCallback = (subs: IdObj[], addSubs: IdObj[]) => IdObj[]
 
-type IdObj = LeafIdObj | NestIdObj
+export type IdObj = LeafIdObj | NestIdObj
 
 class NestIdObj extends LeafIdObj {
   open?: boolean = true
