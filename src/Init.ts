@@ -1,7 +1,7 @@
 import { ClassPropsPartial } from 'next-type-utility'
 
-export default class Init<T extends Init<any>> {
-  init(initProps: ClassPropsPartial<T>) {
+export default class Init {
+  init(initProps: ClassPropsPartial<typeof this>) {
     initProps && Object.assign(this, initProps)
     return this
   }

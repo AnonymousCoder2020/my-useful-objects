@@ -5,7 +5,7 @@ export type Id = string | number
 
 type GetIdDef<T, I extends Id> = (item: T) => I
 
-export default class SelectionItems<T, I extends Id> extends Init<SelectionItems<T, I>> {
+export default class SelectionItems<T, I extends Id> extends Init {
   select: Set<I> = new Set()
   range: Set<I> = new Set()
   pinId?: I

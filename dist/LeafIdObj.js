@@ -1,7 +1,5 @@
-class LeafIdObj {
-    constructor(init) {
-        Object.assign(this, init);
-    }
+import Init from './Init';
+class LeafIdObj extends Init {
     name;
     id;
     boss;

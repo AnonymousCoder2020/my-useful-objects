@@ -7,10 +7,9 @@ class NestIdObj extends LeafIdObj {
     open = true;
     subs;
     idManager;
-    constructor(cleanMode, init) {
-        super(init);
+    constructor(cleanMode) {
+        super();
         this.cleanMode = cleanMode;
-        Object.assign(this, init);
     }
     getSubTree(includeRoot) {
         return eachRecur(this, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot });

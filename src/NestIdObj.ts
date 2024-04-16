@@ -1,5 +1,4 @@
 import { eachRecur } from 'next-ts-utility'
-import { ClassPropsPartial } from 'next-type-utility'
 import { IntIdManager } from '.'
 import LeafIdObj from './LeafIdObj'
 import cleanIntId, { CleanMode } from './lib/cleanIntId'
@@ -14,9 +13,8 @@ class NestIdObj extends LeafIdObj {
   open?: boolean = true
   subs?: (NestIdObj | LeafIdObj)[]
   idManager?: IntIdManager
-  constructor(public cleanMode: CleanMode, init: ClassPropsPartial<NestIdObj>) {
-    super(init)
-    Object.assign(this, init)
+  constructor(public cleanMode: CleanMode) {
+    super()
   }
   getSubTree(includeRoot?: false) {
     return eachRecur(this as IdObj, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot })

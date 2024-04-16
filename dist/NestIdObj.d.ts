@@ -1,4 +1,3 @@
-import { ClassPropsPartial } from 'next-type-utility';
 import { IntIdManager } from '.';
 import LeafIdObj from './LeafIdObj';
 import { CleanMode } from './lib/cleanIntId';
@@ -9,7 +8,7 @@ declare class NestIdObj extends LeafIdObj {
     open?: boolean;
     subs?: (NestIdObj | LeafIdObj)[];
     idManager?: IntIdManager;
-    constructor(cleanMode: CleanMode, init: ClassPropsPartial<NestIdObj>);
+    constructor(cleanMode: CleanMode);
     getSubTree(includeRoot?: false): IdObj[];
     get root(): NestIdObj;
     toggleOpen(): this;

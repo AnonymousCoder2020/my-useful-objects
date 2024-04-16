@@ -1,8 +1,7 @@
-import { ClassPropsPartial } from 'next-type-utility';
+import Init from './Init';
 import type NestIdObj from './NestIdObj';
 type IdObj = LeafIdObj | NestIdObj;
-declare class LeafIdObj {
-    constructor(init: ClassPropsPartial<LeafIdObj>);
+declare class LeafIdObj extends Init {
     name?: string;
     id?: number;
     boss?: NestIdObj;
