@@ -34,7 +34,7 @@ class NestIdObj extends LeafIdObj {
   private cleanIdOnTop() {
     this.idManager = cleanIntId(this.cleanMode, this.getSubTree(), {
       get: node => node.id,
-      set: (node, id) => (node.id = id)
+      set: (node, id) => (node.id = id),
     })
     return this.idManager
   }

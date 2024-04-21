@@ -3664,6 +3664,7 @@ ms@2.1.2:
   dependencies:
     "@types/chrome" "0.0.127"
     "@types/styled-components" "^5.1.7"
+    "@types/webextension-polyfill" "^0.10.7"
     react "^18.2.0"
     styled-components "^5.3.5"
 
@@ -3694,9 +3695,9 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-"next-ts-utility@github:AnonymousCoder2020/next-ts-utility":
+"next-ts-utility@https://github.com/AnonymousCoder2020/next-ts-utility":
   version "1.5.2"
-  resolved "https://codeload.github.com/AnonymousCoder2020/next-ts-utility/tar.gz/252a2f35dc6a6a20fe2cb300dbba38a285f38006"
+  resolved "https://github.com/AnonymousCoder2020/next-ts-utility#252a2f35dc6a6a20fe2cb300dbba38a285f38006"
   dependencies:
     dayjs "^1.11.7"
     lodash-es "^4.17.21"
