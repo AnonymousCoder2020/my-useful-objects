@@ -16,6 +16,16 @@ class NestIdObj extends LeafIdObj {
   constructor(public cleanMode: CleanMode) {
     super()
   }
+  teachBossRecur() {
+    eachRecur(this as IdObj, node => {
+      if (node instanceof NestIdObj) {
+        node.subs?.forEach(sub => (sub.boss = node))
+        return node.subs
+      } else {
+        return []
+      }
+    })
+  }
   getSubTree(includeRoot?: false) {
     return eachRecur(this as IdObj, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot })
   }

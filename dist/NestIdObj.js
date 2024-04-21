@@ -11,6 +11,17 @@ class NestIdObj extends LeafIdObj {
         super();
         this.cleanMode = cleanMode;
     }
+    teachBossRecur() {
+        eachRecur(this, node => {
+            if (node instanceof NestIdObj) {
+                node.subs?.forEach(sub => (sub.boss = node));
+                return node.subs;
+            }
+            else {
+                return [];
+            }
+        });
+    }
     getSubTree(includeRoot) {
         return eachRecur(this, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot });
     }
@@ -30,7 +41,7 @@ class NestIdObj extends LeafIdObj {
     cleanIdOnTop() {
         this.idManager = cleanIntId(this.cleanMode, this.getSubTree(), {
             get: node => node.id,
-            set: (node, id) => (node.id = id)
+            set: (node, id) => (node.id = id),
         });
         return this.idManager;
     }
