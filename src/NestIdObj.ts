@@ -25,6 +25,7 @@ class NestIdObj extends LeafIdObj {
         return []
       }
     })
+    return this
   }
   getSubTree(includeRoot?: false) {
     return eachRecur(this as IdObj, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot })
