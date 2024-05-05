@@ -9,5 +9,8 @@ declare class LeafIdObj extends Init {
     get root(): IdObj;
     isSubOf(bossOrNot: NestIdObj): boolean;
     del(): this;
+    isValidId(): this is this & {
+        id: number;
+    };
 }
 export default LeafIdObj;

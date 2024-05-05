@@ -1,6 +1,6 @@
 class IntIdManager {
   static isValidId(id: unknown): id is number {
-    return typeof id !== 'number' || !Number.isInteger(id) || id < 0
+    return typeof id == 'number' && Number.isInteger(id) && 0 <= id
   }
   constructor(public nextId: number = 0, public dumps: number[] = []) {}
   use() {

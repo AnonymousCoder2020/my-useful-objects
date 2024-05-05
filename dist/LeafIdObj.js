@@ -1,4 +1,5 @@
 import Init from './Init';
+import IntIdManager from './IntIdManager';
 class LeafIdObj extends Init {
     name;
     id;
@@ -30,6 +31,9 @@ class LeafIdObj extends Init {
     del() {
         this.boss?.delSubs([this]);
         return this;
+    }
+    isValidId() {
+        return IntIdManager.isValidId(this.id);
     }
 }
 export default LeafIdObj;

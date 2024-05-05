@@ -9,8 +9,9 @@ declare class NestIdObj extends LeafIdObj {
     subs?: (NestIdObj | LeafIdObj)[];
     idManager?: IntIdManager;
     constructor(cleanMode: CleanMode);
-    teachBossRecur(): this;
+    teachBoss(): this;
     getSubTree(includeRoot?: false): IdObj[];
+    findNodes(...ids: number[]): IdObj[];
     get root(): NestIdObj;
     toggleOpen(): this;
     cleanId(): IntIdManager;

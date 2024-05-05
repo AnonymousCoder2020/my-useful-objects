@@ -1,4 +1,5 @@
 import Init from './Init'
+import IntIdManager from './IntIdManager'
 import type NestIdObj from './NestIdObj'
 
 type IdObj = LeafIdObj | NestIdObj
@@ -32,6 +33,9 @@ class LeafIdObj extends Init {
   del() {
     this.boss?.delSubs([this])
     return this
+  }
+  isValidId(): this is this & { id: number } {
+    return IntIdManager.isValidId(this.id)
   }
 }
 

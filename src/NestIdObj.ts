@@ -16,7 +16,7 @@ class NestIdObj extends LeafIdObj {
   constructor(public cleanMode: CleanMode) {
     super()
   }
-  teachBossRecur() {
+  teachBoss() {
     eachRecur(this as IdObj, node => {
       if (node instanceof NestIdObj) {
         node.subs?.forEach(sub => (sub.boss = node))
@@ -29,6 +29,10 @@ class NestIdObj extends LeafIdObj {
   }
   getSubTree(includeRoot?: false) {
     return eachRecur(this as IdObj, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot })
+  }
+  findNodes(...ids: number[]) {
+    const subTree = this.getSubTree()
+    return subTree.filter(node => node.isValidId() && ids.includes(node.id))
   }
   get root() {
     let boss = this as NestIdObj
