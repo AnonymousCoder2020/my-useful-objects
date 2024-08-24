@@ -11,6 +11,7 @@ declare class NestIdObj extends LeafIdObj {
     constructor(cleanMode: CleanMode);
     teachBoss(): this;
     getSubTree(includeRoot?: false): IdObj[];
+    findNode(id: number): IdObj | undefined;
     findNodes(...ids: number[]): IdObj[];
     get root(): NestIdObj;
     toggleOpen(): this;

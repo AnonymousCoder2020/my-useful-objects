@@ -26,9 +26,11 @@ class NestIdObj extends LeafIdObj {
     getSubTree(includeRoot) {
         return eachRecur(this, node => (node instanceof NestIdObj ? node.subs : []), { includeRoot });
     }
+    findNode(id) {
+        return this.getSubTree().find(node => node.isValidId() && id === node.id);
+    }
     findNodes(...ids) {
-        const subTree = this.getSubTree();
-        return subTree.filter(node => node.isValidId() && ids.includes(node.id));
+        return this.getSubTree().filter(node => node.isValidId() && ids.includes(node.id));
     }
     get root() {
         let boss = this;
